@@ -31,7 +31,7 @@ def translate_text(text):
 
 result = st.button('Распознать изображение')
 if result:
-    text = ocr_space_file(img, False, "K87431946488957", "rus")
+    text = ocr_space_file(img, False, "KEY", "rus")
     st.write('**Результаты распознавания:**')
     st.write("Текст до перевода:")
     st.write(text)

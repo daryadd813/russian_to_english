@@ -50,11 +50,11 @@ streamlit run main.py
 1. Получите свой API ключ на [OCR.Space](https://ocr.space/ocrapi)
 2. Замените строку:
    
-   text = ocr_space_file(img, False, "КЛЮЧ", "rus")
+   text = ocr_space_file(img, False, "KEY", "rus")
    
    на:
    
-   text = ocr_space_file(img, False, "ВАШ_КЛЮЧ", "rus")
+   text = ocr_space_file(img, False, "YOUR_KEY", "rus")
    
 
 ## 🌍 Поддерживаемые языки
