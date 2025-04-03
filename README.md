@@ -1,15 +1,72 @@
-# Распознай японский текст с изображения!
+# Распознавание текста с изображений и перевод на английский язык
 
-Web-приложение для распознавания текста на японском языке с изображения.
-Используются библиотеки:
+Это приложение, созданное с использованием библиотеки Streamlit, позволяет загружать изображения с текстом на русском языке и автоматически распознавать и переводить его на английский язык.
 
-- [Streamlit](https://streamlit.io/)
-- [Transformers]( https://huggingface.co/)
-- [Torchvision](https://pytorch.org/vision/stable/index.html)
-- [Fugashi](https://pypi.org/project/fugashi/)
+## Установка
 
-Для распознавания изображений используется нейронная сеть [Manga OCR](https://huggingface.co/kha-white/manga-ocr-base). 
+Перед использованием приложения убедитесь, что у вас установлены следующие библиотеки:
 
-Подробности о модели на [GitHub](https://github.com/kha-white/manga-ocr).
+pip install streamlit requests deep-translator
 
-[Ссылка на развернутое приложение](https://yazolga-kanji-to-text-main-f0d9ge.streamlit.app/).
+## Используемые библиотеки
+
+- streamlit: Библиотека для создания веб-приложений с помощью Python. В нашем приложении она используется для создания интерфейса, включающего загрузку изображений и отображение результатов распознавания и перевода.
+
+- requests: Библиотека для выполнения HTTP-запросов. Используется для отправки загруженного изображения на API OCR для распознавания текста.
+
+- json: Стандартная библиотека Python для работы с данными в формате JSON. Здесь она используется для обработки ответа от API и извлечения распознанного текста.
+
+- deep-translator: Библиотека для перевода текста с помощью различных онлайн API. Мы используем ее для перевода распознанного текста с русского на английский язык.
+
+## Как использовать
+
+1. Запустите приложение командой:
+   streamlit run ваш_файл.py
+2. В интерфейсе нажмите на кнопку "Выберите изображение для распознавания", чтобы загрузить изображение в формате PNG или JPG.
+
+3. После загрузки изображения, нажмите кнопку "Распознать изображение".
+
+4. Приложение распознает текст на изображении и отобразит результат до и после перевода на экран.
+
+## Пример кода
+
+Вот краткий фрагмент основного кода:
+
+def load_image():
+uploaded_file = st.file_uploader(label='Выберите изображение для распознавания', type=["png", "jpg"])
+return uploaded_file if uploaded_file is not None else None
+
+def ocr_space_file(uploaded_file, overlay=False, api_key='helloworld', language='rus'):
+payload = {
+'isOverlayRequired': overlay,
+'apikey': api_key,
+'language': language,
+}
+response = requests.post(
+'https://api.ocr.space/parse/image',
+files={uploaded_file.name: uploaded_file.getbuffer()},
+data=payload,
+)
+return json.loads(response.content.decode())["ParsedResults"][0]["ParsedText"]
+
+result = st.button('Распознать изображение')
+if result:
+text = ocr_space_file(img)
+st.write("Результаты распознавания:")
+st.write(text)
+
+    translated_text = translate_text(text)
+    st.write("Текст после перевода:")
+    st.write(translated_text)
+
+## Лицензия
+
+Этот проект доступен для использования и модификации. Если вы хотите внести изменения или предложения, пожалуйста, создайте пулл-реквест.
+
+## Контакты
+
+Если у вас есть вопросы, вы можете связаться со мной через ваши контактные данные.
+
+---
+
+Теперь можете опубликовать ваш проект на GitHub с этой документацией!
