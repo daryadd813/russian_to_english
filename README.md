@@ -70,7 +70,6 @@ streamlit run main.py
 GoogleTranslator(source='auto', target='en')  # 'en' замените на нужный язык
 
 ## 🤝 Как внести вклад
-
 1. Форкните репозиторий
 2. Создайте ветку с новым функционалом (git checkout -b feature/AmazingFeature)
 3. Зафиксируйте изменения (git commit -m 'Add some AmazingFeature')
