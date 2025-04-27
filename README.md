@@ -28,7 +28,7 @@
 
 ### Установка зависимостей
 
-pip install streamlit requests deep-translator
+pip3 install streamlit requests deep-translator
 
 ### Запуск приложения
 
